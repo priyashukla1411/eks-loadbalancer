@@ -1,8 +1,8 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  namespace: game-2048
-  name: ingress-2048
+  namespace: game-204873
+  name: ingress-204889
   annotations:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
@@ -24,14 +24,14 @@ spec:
           pathType: Prefix
           backend:
             service:
-              name: service-2048
+              name: service-204891
               port:
                 number: 80
         
-        - path: /app-2048
+        - path: /app-2048101
           pathType: Prefix
           backend:
             service:
-              name: service-2048
+              name: service-2048102
               port:
                 number: 80
