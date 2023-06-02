@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Build Docker Image') {
             steps {
-                withCredentials([usernamePassword(credentialsId: '563508789483', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                withCredentials([usernamePassword(credentialsId: 'awscred', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
                     sh '''
                      aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin 563508789483.dkr.ecr.ap-northeast-1.amazonaws.com
                      docker build -t nodejs .
@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Deploy to EKS') {
             steps {
-                withAWS(credentials: '563508789483') {
+                withAWS(credentials: 'awscred') {
                     withCredentials([file(credentialsId: "${KUBECONFIG_ID}", variable: 'KUBECONFIG')]) {
 
                         sh "kubectl delete deployment.apps/deployment-204890 -n game-204873"
