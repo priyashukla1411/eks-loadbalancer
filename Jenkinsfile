@@ -23,10 +23,13 @@ pipeline {
                     withCredentials([file(credentialsId: "${KUBECONFIG_ID}", variable: 'kubeid')]) {
 
                    
-
-                  
+                        
+                        sh "aws eks --region ap-northeast-1 describe-cluster --name eks-cluster --query cluster.status"
+                        sh "aws eks --region ap-northeast-1 update-kubeconfig  --name  eks-cluster"
+                        sh "kubectl delete deployment/deployment-204890 -n game-204873"
+                        sh "kubectl delete service/service-204891 -n game-204873"
                         sh "kubectl apply -f GameApp.yaml"
-                        sh "kubectl apply -f ingress.yaml"
+                        sh "kubectl apply -f Ingress.yaml"
                     }
                 }
             }
