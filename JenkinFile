@@ -22,8 +22,9 @@ pipeline {
                 withAWS(credentials: '	563508789483') {
                     withCredentials([file(credentialsId: "${KUBECONFIG_ID}", variable: 'KUBECONFIG')]) {
 
-                        sh "kubectl apply -f dep.yml"
-                        sh "kubectl apply -f ser.yml"
+                        sh "kubectl delete deployment.apps/deployment-204890 -n game-204873"
+                        sh "kubectl delete service/service-204891 -n game-204873"
+                        sh "kubectl apply -f deployment.yml"
                         sh "kubectl apply -f ingress.yml"
                     }
                 }
