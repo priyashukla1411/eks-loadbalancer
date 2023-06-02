@@ -20,7 +20,7 @@ pipeline {
         stage('Deploy to EKS') {
             steps {
                 withAWS(credentials: 'awsid') {
-                    withCredentials([file(credentialsId: "${KUBECONFIG_ID}", variable: 'KUBECONFIG')]) {
+                    withCredentials([file(credentialsId: "${KUBECONFIG_ID}", variable: 'kubeid')]) {
 
                    
                         sh "kubectl apply -f deployment.yaml"
