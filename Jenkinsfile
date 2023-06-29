@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         AWS_DEFAULT_REGION = 'ap-northeast-1'
-        KUBECONFIG_ID = 'kubeid'
+        KUBECONFIG_ID = 'eks'
     }
     stages {
         stage('Build Docker Image') {
@@ -20,7 +20,7 @@ pipeline {
         stage('Deploy to EKS') {
             steps {
                 withAWS(credentials: 'awsid') {
-                    withCredentials([file(credentialsId: "${KUBECONFIG_ID}", variable: 'kubeid')]) {
+                    withCredentials([file(credentialsId: "${KUBECONFIG_ID}", variable: 'eks')]) {
 
                    
                         
