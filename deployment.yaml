@@ -36,6 +36,7 @@ spec:
     - port: 80
       targetPort: 3000
       protocol: TCP
-  type: NodePort
+  type: LoadBalancer
   selector:
     app.kubernetes.io/name: app-204892
+
