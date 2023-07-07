@@ -18,14 +18,14 @@ pipeline {
             }
         }
         stage('Deploy to EKS') {
-              steps {
-          
+            steps {
                 withAWS(credentials: 'awsid') {
                     withCredentials([file(credentialsId: "${KUBECONFIG_ID}", variable: 'kubeid')]) {
                         sh "kubectl delete deployment.apps/deployment-204890 -n game-204873"
                         sh "kubectl delete service/service-204891 -n game-204873"
-                        sh "kubectl apply -f deployment.yaml"
-                        sh "kubectl apply -f ingress.yaml"
+                        sh "kubectl apply -f GameApp.yaml"
+                        sh "kubectl apply -f Ingress.yaml"
+                    }
                 }
             }
         }
