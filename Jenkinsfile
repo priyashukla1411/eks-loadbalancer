@@ -18,16 +18,14 @@ pipeline {
             }
         }
         stage('Deploy to EKS') {
-             environment {
-                 
-                 
-                    // Set AWS credentials
-                    AWS_ACCESS_KEY_ID = credentials('AKIAYGM55YDV54HJTQG5')
-                    AWS_SECRET_ACCESS_KEY = credentials('Xt/QBQyC8TQ+QXz190oi+ljcMS4KWSzXtNOoTLwU')
-                 steps {
-                    withAWS(region: 'your-aws-region', credentials: 'aws-access-key-id') {
-                    sh 'kubectl apply -f deployment.yaml'
-                    }
+              steps {
+          
+                withAWS(credentials: 'awsid') {
+                    withCredentials([file(credentialsId: "${KUBECONFIG_ID}", variable: 'kubeid')]) {
+                        sh "kubectl delete deployment.apps/deployment-204890 -n game-204873"
+                        sh "kubectl delete service/service-204891 -n game-204873"
+                        sh "kubectl apply -f GameApp.yaml"
+                        sh "kubectl apply -f Ingress.yaml"
                 }
             }
         }
