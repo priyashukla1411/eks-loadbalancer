@@ -20,7 +20,7 @@ pipeline {
         stage('Deploy to EKS') {
             steps {
                 withAWS(credentials: 'awsid') {
-                    withCredentials([file(credentialsId: "${KUBECONFIG_ID}", variable: 'kubeid')]) {
+                    withCredentials([file(credentialsId: "${KUBECONFIG_ID}", variable:'KUBECONFIG')]) {
                         sh "aws eks --region ap-northeast-1 describe-cluster --name eks-cluster --query cluster.status"
                         sh "aws eks --region ap-northeast-1 update-kubeconfig  --name eks-cluster"
 
