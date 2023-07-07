@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Deploy to EKS') {
             steps {
-                withAWS(credentials: 'my-aws-creds') {
+                withAWS(credentials: 'awsid') {
                     withCredentials([file(credentialsId: "${KUBECONFIG_ID}", variable: 'kubeid')]) {
                         sh "kubectl delete deployment.apps/deployment-204890 -n game-204873"
                         sh "kubectl delete service/service-204891 -n game-204873"
