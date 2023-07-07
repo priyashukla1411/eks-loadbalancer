@@ -1,8 +1,8 @@
 pipeline {
     agent any
     environment {
-        AWS_DEFAULT_REGION = 'ap-northeast-1'
-        KUBECONFIG_ID = 'kubeid'
+        AWS_DEFAULT_REGION ='ap-northeast-1'
+        KUBECONFIG_ID ='kubeid'
     }
     stages {
         stage('Build Docker Image') {
@@ -20,7 +20,7 @@ pipeline {
         stage('Deploy to EKS') {
             steps {
                 withAWS(credentials: 'awsid') {
-                    withCredentials([file(credentialsId: "${KUBECONFIG_ID}", variable:'KUBECONFIG')]) {
+                    withCredentials([file(credentialsId: "${KUBECONFIG_ID}", variable:'kubeid')]) {
                         sh "aws eks --region ap-northeast-1 describe-cluster --name eks-cluster --query cluster.status"
                         sh "aws eks --region ap-northeast-1 update-kubeconfig  --name eks-cluster"
 
