@@ -24,7 +24,7 @@ pipeline {
                     // Set AWS credentials
                     AWS_ACCESS_KEY_ID = credentials('AKIAYGM55YDV54HJTQG5')
                     AWS_SECRET_ACCESS_KEY = credentials('Xt/QBQyC8TQ+QXz190oi+ljcMS4KWSzXtNOoTLwU')
-             steps {
+                 steps {
                     withAWS(region: 'your-aws-region', credentials: 'aws-access-key-id') {
                     sh 'kubectl apply -f deployment.yaml'
                     }
