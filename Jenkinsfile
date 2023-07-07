@@ -8,14 +8,13 @@ pipeline {
         }
   
         stage('Docker Image Build') {
-            steps {
-                sh 'docker build -t nodejs .'
-            }
-        }
+           
+        
         stage('Push Docker Image to ECR') {
             steps {
                 withAWS(credentials: 'AKIAYGM55YDV54HJTQG5', region: 'ap-northeast-1') {
                     sh 'aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin 563508789483.dkr.ecr.ap-northeast-1.amazonaws.com'
+                     sh 'docker build -t nodejs .'
                     sh 'docker tag nodejs:latest 563508789483.dkr.ecr.ap-northeast-1.amazonaws.com/nodejs:latest'
                     sh 'docker push 563508789483.dkr.ecr.ap-northeast-1.amazonaws.com/nodejs:latest'
                 }
