@@ -17,7 +17,17 @@ pipeline {
                 }
             }
         }
- 
+         stage('Deploy to EKS') {
+            steps {
+                withAWS(credentials: 'my-aws-creds') {
+                    withCredentials([file(credentialsId: "${KUBECONFIG_ID}", variable: 'KUBECONFIG')]) {
+                       
+                        sh "kubectl apply -f GameApp.yaml"
+                      
+                    }
+                }
+            }
+        }
     }
 }
 
