@@ -17,7 +17,7 @@ pipeline {
                 }
             }
         }
-         stage('Deploy to EKS') {
+        stage('Deploy to EKS') {
             steps {
                 withAWS(credentials: 'my-aws-creds') {
                     withCredentials([file(credentialsId: "${KUBECONFIG_ID}", variable: 'KUBECONFIG')]) {
