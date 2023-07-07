@@ -1,8 +1,8 @@
 pipeline {
     agent any
     environment {
-        AWS_DEFAULT_REGION ='ap-northeast-1'
-        KUBECONFIG_ID ='kubeid'
+        AWS_DEFAULT_REGION = 'ap-northeast-1'
+        KUBECONFIG_ID = 'kubeid'
     }
     stages {
         stage('Build Docker Image') {
@@ -21,8 +21,7 @@ pipeline {
             steps {
                 withAWS(credentials: 'awsid') {
                     withCredentials([file(credentialsId: "${KUBECONFIG_ID}", variable: 'kubeid')]) {
-
-                        sh "kubectl apply -f dep.yaml"
+                   
                         sh "kubectl apply -f ingress.yaml"
                     }
                 }
