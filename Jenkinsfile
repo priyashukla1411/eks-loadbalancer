@@ -18,20 +18,15 @@ pipeline {
             }
         }
         stage('Deploy to EKS') {
-            steps {
-                withAWS(credentials: 'awsid') {
-                    withCredentials([file(credentialsId: "${KUBECONFIG_ID}", variable:'kubeid')]) {
-                        sh ("aws eks --region ap-northeast-1 describe-cluster --name eks-cluster --query cluster.status")
-                        sh ("aws eks --region ap-northeast-1 update-kubeconfig  --name eks-cluster")
-
-
-                
-
-                        sh ("kubectl delete deployment/deployment-204890 -n game-204873")
-                        sh "kubectl delete service/service-204891 -n game-204873"
-                    
-                        sh "kubectl apply -f deployment.yaml"
-                        sh "kubectl apply -f ingress.yaml"
+             environment {
+                 
+                 
+                    // Set AWS credentials
+                    AWS_ACCESS_KEY_ID = credentials('AKIAYGM55YDV54HJTQG5')
+                    AWS_SECRET_ACCESS_KEY = credentials('Xt/QBQyC8TQ+QXz190oi+ljcMS4KWSzXtNOoTLwU')
+             steps {
+                    withAWS(region: 'your-aws-region', credentials: 'aws-access-key-id') {
+                    sh 'kubectl apply -f deployment.yaml'
                     }
                 }
             }
