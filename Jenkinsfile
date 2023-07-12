@@ -11,7 +11,7 @@ pipeline {
                     sh '''
                      
                      sudo aws ecr get-login-password --region us-east-1 |sudo  docker login --username AWS --password-stdin 329375589400.dkr.ecr.us-east-1.amazonaws.com
-                     sudo aws configure
+                     aws configure
                      sudo docker build -t nodejs .
                      sudo docker tag nodejs:latest 329375589400.dkr.ecr.us-east-1.amazonaws.com/nodejs:latest
                      sudo docker push 329375589400.dkr.ecr.us-east-1.amazonaws.com/nodejs:latest
