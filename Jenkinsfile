@@ -9,10 +9,10 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'awsid', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
                     sh '''
-                     aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin 563508789483.dkr.ecr.ap-northeast-1.amazonaws.com
+                     aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 329375589400.dkr.ecr.us-east-1.amazonaws.com
                      docker build -t nodejs .
-                     docker tag nodejs:latest 563508789483.dkr.ecr.ap-northeast-1.amazonaws.com/nodejs:latest
-                     docker push 563508789483.dkr.ecr.ap-northeast-1.amazonaws.com/nodejs:latest
+                     docker tag nodejs:latest 329375589400.dkr.ecr.us-east-1.amazonaws.com/nodejs:latest
+                     docker push 329375589400.dkr.ecr.us-east-1.amazonaws.com/nodejs:latest
                     '''
                 }
             }
